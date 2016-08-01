@@ -12,16 +12,18 @@
 		AA2569B81D4F358C00E3BBC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA2569B61D4F358C00E3BBC5 /* Main.storyboard */; };
 		AA2569BA1D4F358C00E3BBC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA2569B91D4F358C00E3BBC5 /* Assets.xcassets */; };
 		AA2569BD1D4F358C00E3BBC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA2569BB1D4F358C00E3BBC5 /* LaunchScreen.storyboard */; };
+		AA2569C51D4F36D000E3BBC5 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2569C41D4F36D000E3BBC5 /* BubbleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA2569AF1D4F358C00E3BBC5 /* ContextComposeField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContextComposeField.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2569AF1D4F358C00E3BBC5 /* ContextComposeFieldTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContextComposeFieldTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2569B21D4F358C00E3BBC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA2569B41D4F358C00E3BBC5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AA2569B71D4F358C00E3BBC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AA2569B91D4F358C00E3BBC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA2569BC1D4F358C00E3BBC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA2569BE1D4F358C00E3BBC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA2569C41D4F36D000E3BBC5 /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +48,7 @@
 		AA2569B01D4F358C00E3BBC5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA2569AF1D4F358C00E3BBC5 /* ContextComposeField.app */,
+				AA2569AF1D4F358C00E3BBC5 /* ContextComposeFieldTester.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +62,7 @@
 				AA2569B91D4F358C00E3BBC5 /* Assets.xcassets */,
 				AA2569BB1D4F358C00E3BBC5 /* LaunchScreen.storyboard */,
 				AA2569BE1D4F358C00E3BBC5 /* Info.plist */,
+				AA2569C41D4F36D000E3BBC5 /* BubbleView.swift */,
 			);
 			path = ContextComposeField;
 			sourceTree = "<group>";
@@ -67,9 +70,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA2569AE1D4F358C00E3BBC5 /* ContextComposeField */ = {
+		AA2569AE1D4F358C00E3BBC5 /* ContextComposeFieldTester */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA2569C11D4F358C00E3BBC5 /* Build configuration list for PBXNativeTarget "ContextComposeField" */;
+			buildConfigurationList = AA2569C11D4F358C00E3BBC5 /* Build configuration list for PBXNativeTarget "ContextComposeFieldTester" */;
 			buildPhases = (
 				AA2569AB1D4F358C00E3BBC5 /* Sources */,
 				AA2569AC1D4F358C00E3BBC5 /* Frameworks */,
@@ -79,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = ContextComposeField;
+			name = ContextComposeFieldTester;
 			productName = ContextComposeField;
-			productReference = AA2569AF1D4F358C00E3BBC5 /* ContextComposeField.app */;
+			productReference = AA2569AF1D4F358C00E3BBC5 /* ContextComposeFieldTester.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -112,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AA2569AE1D4F358C00E3BBC5 /* ContextComposeField */,
+				AA2569AE1D4F358C00E3BBC5 /* ContextComposeFieldTester */,
 			);
 		};
 /* End PBXProject section */
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA2569C51D4F36D000E3BBC5 /* BubbleView.swift in Sources */,
 				AA2569B51D4F358C00E3BBC5 /* ViewController.swift in Sources */,
 				AA2569B31D4F358C00E3BBC5 /* AppDelegate.swift in Sources */,
 			);
@@ -253,7 +257,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ContextComposeField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextComposeField;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextComposeFieldTester;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -264,7 +268,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ContextComposeField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextComposeField;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextComposeFieldTester;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -281,7 +285,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA2569C11D4F358C00E3BBC5 /* Build configuration list for PBXNativeTarget "ContextComposeField" */ = {
+		AA2569C11D4F358C00E3BBC5 /* Build configuration list for PBXNativeTarget "ContextComposeFieldTester" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA2569C21D4F358C00E3BBC5 /* Debug */,

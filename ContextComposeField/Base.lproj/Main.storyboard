@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="byQ-Mx-1xp">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="H4V-Uo-lUD">
+            <objects>
+                <navigationController id="byQ-Mx-1xp" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lJU-wn-OO9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="rSt-uf-U0u"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qwd-1o-YCa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-721" y="-18"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ContextComposeFieldTester" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +32,124 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="V8N-Sc-ThJ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncommingCell" id="Fdi-Qn-Ofn" customClass="MessageCell" customModule="ContextComposeFieldTester" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fdi-Qn-Ofn" id="hVJ-et-esr">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O2E-rj-fFN" customClass="BubbleView" customModule="ContextComposeFieldTester" customModuleProvider="target">
+                                                    <rect key="frame" x="540" y="2" width="52" height="40"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCP-ob-y4H">
+                                                            <rect key="frame" x="8" y="8" width="36" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.20021130003528076" green="0.7285731623263656" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="dCP-ob-y4H" secondAttribute="trailing" constant="8" id="I2O-DC-KAr"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dCP-ob-y4H" secondAttribute="bottom" constant="8" id="Qet-oO-g4q"/>
+                                                        <constraint firstItem="dCP-ob-y4H" firstAttribute="leading" secondItem="O2E-rj-fFN" secondAttribute="leading" constant="8" id="YBp-Nt-KT4"/>
+                                                        <constraint firstItem="dCP-ob-y4H" firstAttribute="top" secondItem="O2E-rj-fFN" secondAttribute="top" constant="8" id="be2-bz-ixr"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="roundRadius">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="bubbleDirectionIB">
+                                                            <integer key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="O2E-rj-fFN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hVJ-et-esr" secondAttribute="leading" constant="32" id="BQD-2v-XSX"/>
+                                                <constraint firstItem="O2E-rj-fFN" firstAttribute="top" secondItem="hVJ-et-esr" secondAttribute="top" constant="2" id="SHy-bS-2ky"/>
+                                                <constraint firstAttribute="trailing" secondItem="O2E-rj-fFN" secondAttribute="trailing" constant="8" id="awu-c2-NqE"/>
+                                                <constraint firstAttribute="bottom" secondItem="O2E-rj-fFN" secondAttribute="bottom" constant="2" id="eUL-06-aCn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageLabel" destination="dCP-ob-y4H" id="rlF-wF-MvZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingCell" id="1aT-ys-kbd" customClass="MessageCell" customModule="ContextComposeFieldTester" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="136" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1aT-ys-kbd" id="T00-En-IY5">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ZM-5s-mEX" customClass="BubbleView" customModule="ContextComposeFieldTester" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="4" width="52" height="36"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibk-mp-z6f">
+                                                            <rect key="frame" x="8" y="8" width="36" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="Ibk-mp-z6f" secondAttribute="bottom" constant="8" id="2a3-FT-EWz"/>
+                                                        <constraint firstItem="Ibk-mp-z6f" firstAttribute="top" secondItem="5ZM-5s-mEX" secondAttribute="top" constant="8" id="GZl-Z9-rUf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Ibk-mp-z6f" secondAttribute="trailing" constant="8" id="L95-Z9-BZS"/>
+                                                        <constraint firstItem="Ibk-mp-z6f" firstAttribute="leading" secondItem="5ZM-5s-mEX" secondAttribute="leading" constant="8" id="UG4-7s-D2b"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="bubbleDirectionIB">
+                                                            <integer key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="roundRadius">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5ZM-5s-mEX" firstAttribute="top" secondItem="T00-En-IY5" secondAttribute="top" constant="4" id="6H8-Ov-Boa"/>
+                                                <constraint firstAttribute="bottom" secondItem="5ZM-5s-mEX" secondAttribute="bottom" constant="4" id="Q7c-OJ-Z53"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5ZM-5s-mEX" secondAttribute="trailing" constant="32" id="Rlg-0n-EJp"/>
+                                                <constraint firstItem="5ZM-5s-mEX" firstAttribute="leading" secondItem="T00-En-IY5" secondAttribute="leading" constant="8" id="fCk-B8-btf"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageLabel" destination="Ibk-mp-z6f" id="tX5-qD-Uue"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="gPO-JN-tN6"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="FSk-cw-lhH"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="V8N-Sc-ThJ" secondAttribute="trailing" id="4kI-BD-Xgc"/>
+                            <constraint firstItem="V8N-Sc-ThJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ck2-lh-lo4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="V8N-Sc-ThJ" secondAttribute="bottom" id="TAw-yH-M6o"/>
+                            <constraint firstItem="V8N-Sc-ThJ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="nlV-Us-NL0"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="RBm-09-E2m"/>
+                    <connections>
+                        <outlet property="tableView" destination="V8N-Sc-ThJ" id="46d-2h-IVk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-5" y="-18"/>
         </scene>
     </scenes>
 </document>
