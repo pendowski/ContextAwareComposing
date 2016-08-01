@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ContextAwareComposeField
 
 enum CellIdentifier: String {
     case Incomming = "IncommingCell"
@@ -27,9 +28,14 @@ class MessageCell: UITableViewCell {
     @IBOutlet var messageLabel: UILabel!
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ContextAwareComposeViewDelegate {
     
+    private var messageTimer: NSTimer!
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var composeView: ContextAwareComposeView!
+    @IBOutlet private var composeViewBottomContraint: NSLayoutConstraint!
+    
+    private var textField: UITextField!
     var messages: [Message] = []
 
     override func viewDidLoad() {
@@ -42,6 +48,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         self.messages.append(Message(type: .Outgoing, body: "Hi"))
         
+        self.textField = UITextField()
+        self.composeView.messageContainer.messageComposeView = self.textField
+        self.composeView.delegate = self
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardFrameChanged(_:)), name: UIKeyboardDidChangeFrameNotification, object: nil)
+        
+        self.messageTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.sendFakeMessage), userInfo: nil, repeats: true)
+    }
+    
+    func insertMessage(message: Message) {
+        let animation: UITableViewRowAnimation = message.type == .Incomming ? .Right : .Left
+
+        self.messages.append(message)
+        let newIndexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+        
+        self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: animation)
+        self.tableView.scrollToRowAtIndexPath(newIndexPath, atScrollPosition: .Bottom, animated: true)
     }
 
     // MARK: - Table view data source
@@ -68,6 +91,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.messageLabel.text = message.body
         
         return cell
+    }
+    
+    // MARK: - Compose view delegate
+    
+    func composeView(composeView: ContextAwareComposeView, pressedSendButton: UIButton) {
+        if let message = self.textField.text {
+            self.insertMessage(Message(type: .Outgoing, body: message))
+        }
+        
+        self.textField.text = ""
+        self.composeView.setSaveButtonVisible(false, animated: true)
+    }
+    
+    func viewForSavedMessages(composeView: ContextAwareComposeView) -> UIView {
+        return self.view
+    }
+    
+    // MARK: - Keyboard handling
+    
+    @objc func keyboardFrameChanged(notification: NSNotification) {
+        if let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue {
+            self.composeViewBottomContraint.constant = CGRectGetHeight(keyboardFrame)
+        }
+    }
+    
+    // MARK: - Timer
+    
+    @objc func sendFakeMessage() {
+        let date = NSDate()
+        self.insertMessage(Message(type: .Incomming, body: "It's now \(date)"))
+        
+        if let message = self.textField.text where !message.isEmpty {
+            self.composeView.setSaveButtonVisible(true, animated: true)
+        }
     }
 
 }

@@ -13,7 +13,52 @@
 		AA2569BA1D4F358C00E3BBC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA2569B91D4F358C00E3BBC5 /* Assets.xcassets */; };
 		AA2569BD1D4F358C00E3BBC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA2569BB1D4F358C00E3BBC5 /* LaunchScreen.storyboard */; };
 		AA2569C51D4F36D000E3BBC5 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2569C41D4F36D000E3BBC5 /* BubbleView.swift */; };
+		AA2569F11D4F3EC500E3BBC5 /* ContextAwareComposeField.h in Headers */ = {isa = PBXBuildFile; fileRef = AA2569F01D4F3EC500E3BBC5 /* ContextAwareComposeField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA2569F81D4F3EC500E3BBC5 /* ContextAwareComposeField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2569EE1D4F3EC500E3BBC5 /* ContextAwareComposeField.framework */; };
+		AA2569FF1D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2569FE1D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests.swift */; };
+		AA256A031D4F3EC500E3BBC5 /* ContextAwareComposeField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2569EE1D4F3EC500E3BBC5 /* ContextAwareComposeField.framework */; };
+		AA256A041D4F3EC500E3BBC5 /* ContextAwareComposeField.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA2569EE1D4F3EC500E3BBC5 /* ContextAwareComposeField.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AA256A0D1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A0C1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift */; };
+		AA256A0F1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A0E1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA2569F91D4F3EC500E3BBC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA2569A71D4F358C00E3BBC5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA2569ED1D4F3EC500E3BBC5;
+			remoteInfo = ContextAwareComposeField;
+		};
+		AA2569FB1D4F3EC500E3BBC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA2569A71D4F358C00E3BBC5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA2569AE1D4F358C00E3BBC5;
+			remoteInfo = ContextComposeFieldTester;
+		};
+		AA256A011D4F3EC500E3BBC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA2569A71D4F358C00E3BBC5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA2569ED1D4F3EC500E3BBC5;
+			remoteInfo = ContextAwareComposeField;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AA256A0A1D4F3EC500E3BBC5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AA256A041D4F3EC500E3BBC5 /* ContextAwareComposeField.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA2569AF1D4F358C00E3BBC5 /* ContextComposeFieldTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContextComposeFieldTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +69,14 @@
 		AA2569BC1D4F358C00E3BBC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA2569BE1D4F358C00E3BBC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA2569C41D4F36D000E3BBC5 /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
+		AA2569EE1D4F3EC500E3BBC5 /* ContextAwareComposeField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ContextAwareComposeField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2569F01D4F3EC500E3BBC5 /* ContextAwareComposeField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContextAwareComposeField.h; sourceTree = "<group>"; };
+		AA2569F21D4F3EC500E3BBC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA2569F71D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContextAwareComposeFieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2569FE1D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextAwareComposeFieldTests.swift; sourceTree = "<group>"; };
+		AA256A001D4F3EC500E3BBC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA256A0C1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextAwareComposeView.swift; sourceTree = "<group>"; };
+		AA256A0E1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextAwareFieldContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +84,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA256A031D4F3EC500E3BBC5 /* ContextAwareComposeField.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA2569EA1D4F3EC500E3BBC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA2569F41D4F3EC500E3BBC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA2569F81D4F3EC500E3BBC5 /* ContextAwareComposeField.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				AA2569B11D4F358C00E3BBC5 /* ContextComposeField */,
+				AA2569EF1D4F3EC500E3BBC5 /* ContextAwareComposeField */,
+				AA2569FD1D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests */,
 				AA2569B01D4F358C00E3BBC5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				AA2569AF1D4F358C00E3BBC5 /* ContextComposeFieldTester.app */,
+				AA2569EE1D4F3EC500E3BBC5 /* ContextAwareComposeField.framework */,
+				AA2569F71D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,7 +140,38 @@
 			path = ContextComposeField;
 			sourceTree = "<group>";
 		};
+		AA2569EF1D4F3EC500E3BBC5 /* ContextAwareComposeField */ = {
+			isa = PBXGroup;
+			children = (
+				AA2569F01D4F3EC500E3BBC5 /* ContextAwareComposeField.h */,
+				AA2569F21D4F3EC500E3BBC5 /* Info.plist */,
+				AA256A0C1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift */,
+				AA256A0E1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift */,
+			);
+			path = ContextAwareComposeField;
+			sourceTree = "<group>";
+		};
+		AA2569FD1D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA2569FE1D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests.swift */,
+				AA256A001D4F3EC500E3BBC5 /* Info.plist */,
+			);
+			path = ContextAwareComposeFieldTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AA2569EB1D4F3EC500E3BBC5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA2569F11D4F3EC500E3BBC5 /* ContextAwareComposeField.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		AA2569AE1D4F358C00E3BBC5 /* ContextComposeFieldTester */ = {
@@ -77,15 +181,54 @@
 				AA2569AB1D4F358C00E3BBC5 /* Sources */,
 				AA2569AC1D4F358C00E3BBC5 /* Frameworks */,
 				AA2569AD1D4F358C00E3BBC5 /* Resources */,
+				AA256A0A1D4F3EC500E3BBC5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AA256A021D4F3EC500E3BBC5 /* PBXTargetDependency */,
 			);
 			name = ContextComposeFieldTester;
 			productName = ContextComposeField;
 			productReference = AA2569AF1D4F358C00E3BBC5 /* ContextComposeFieldTester.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AA2569ED1D4F3EC500E3BBC5 /* ContextAwareComposeField */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA256A091D4F3EC500E3BBC5 /* Build configuration list for PBXNativeTarget "ContextAwareComposeField" */;
+			buildPhases = (
+				AA2569E91D4F3EC500E3BBC5 /* Sources */,
+				AA2569EA1D4F3EC500E3BBC5 /* Frameworks */,
+				AA2569EB1D4F3EC500E3BBC5 /* Headers */,
+				AA2569EC1D4F3EC500E3BBC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ContextAwareComposeField;
+			productName = ContextAwareComposeField;
+			productReference = AA2569EE1D4F3EC500E3BBC5 /* ContextAwareComposeField.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AA2569F61D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA256A0B1D4F3EC500E3BBC5 /* Build configuration list for PBXNativeTarget "ContextAwareComposeFieldTests" */;
+			buildPhases = (
+				AA2569F31D4F3EC500E3BBC5 /* Sources */,
+				AA2569F41D4F3EC500E3BBC5 /* Frameworks */,
+				AA2569F51D4F3EC500E3BBC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA2569FA1D4F3EC500E3BBC5 /* PBXTargetDependency */,
+				AA2569FC1D4F3EC500E3BBC5 /* PBXTargetDependency */,
+			);
+			name = ContextAwareComposeFieldTests;
+			productName = ContextAwareComposeFieldTests;
+			productReference = AA2569F71D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -99,6 +242,13 @@
 				TargetAttributes = {
 					AA2569AE1D4F358C00E3BBC5 = {
 						CreatedOnToolsVersion = 7.3.1;
+					};
+					AA2569ED1D4F3EC500E3BBC5 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					AA2569F61D4F3EC500E3BBC5 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = AA2569AE1D4F358C00E3BBC5;
 					};
 				};
 			};
@@ -116,6 +266,8 @@
 			projectRoot = "";
 			targets = (
 				AA2569AE1D4F358C00E3BBC5 /* ContextComposeFieldTester */,
+				AA2569ED1D4F3EC500E3BBC5 /* ContextAwareComposeField */,
+				AA2569F61D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +280,20 @@
 				AA2569BD1D4F358C00E3BBC5 /* LaunchScreen.storyboard in Resources */,
 				AA2569BA1D4F358C00E3BBC5 /* Assets.xcassets in Resources */,
 				AA2569B81D4F358C00E3BBC5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA2569EC1D4F3EC500E3BBC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA2569F51D4F3EC500E3BBC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +310,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA2569E91D4F3EC500E3BBC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA256A0F1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift in Sources */,
+				AA256A0D1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA2569F31D4F3EC500E3BBC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA2569FF1D4F3EC500E3BBC5 /* ContextAwareComposeFieldTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AA2569FA1D4F3EC500E3BBC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA2569ED1D4F3EC500E3BBC5 /* ContextAwareComposeField */;
+			targetProxy = AA2569F91D4F3EC500E3BBC5 /* PBXContainerItemProxy */;
+		};
+		AA2569FC1D4F3EC500E3BBC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA2569AE1D4F358C00E3BBC5 /* ContextComposeFieldTester */;
+			targetProxy = AA2569FB1D4F3EC500E3BBC5 /* PBXContainerItemProxy */;
+		};
+		AA256A021D4F3EC500E3BBC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA2569ED1D4F3EC500E3BBC5 /* ContextAwareComposeField */;
+			targetProxy = AA256A011D4F3EC500E3BBC5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AA2569B61D4F358C00E3BBC5 /* Main.storyboard */ = {
@@ -255,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = ContextComposeField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextComposeFieldTester;
@@ -266,10 +468,74 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = ContextComposeField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextComposeFieldTester;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AA256A051D4F3EC500E3BBC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ContextAwareComposeField/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextAwareComposeField;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AA256A061D4F3EC500E3BBC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ContextAwareComposeField/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextAwareComposeField;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AA256A071D4F3EC500E3BBC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ContextAwareComposeFieldTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextAwareComposeFieldTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContextComposeFieldTester.app/ContextComposeFieldTester";
+			};
+			name = Debug;
+		};
+		AA256A081D4F3EC500E3BBC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ContextAwareComposeFieldTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pendowski.ContextAwareComposeFieldTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContextComposeFieldTester.app/ContextComposeFieldTester";
 			};
 			name = Release;
 		};
@@ -290,6 +556,23 @@
 			buildConfigurations = (
 				AA2569C21D4F358C00E3BBC5 /* Debug */,
 				AA2569C31D4F358C00E3BBC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA256A091D4F3EC500E3BBC5 /* Build configuration list for PBXNativeTarget "ContextAwareComposeField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA256A051D4F3EC500E3BBC5 /* Debug */,
+				AA256A061D4F3EC500E3BBC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AA256A0B1D4F3EC500E3BBC5 /* Build configuration list for PBXNativeTarget "ContextAwareComposeFieldTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA256A071D4F3EC500E3BBC5 /* Debug */,
+				AA256A081D4F3EC500E3BBC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

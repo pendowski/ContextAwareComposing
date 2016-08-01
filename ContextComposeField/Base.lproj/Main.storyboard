@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="V8N-Sc-ThJ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="566"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncommingCell" id="Fdi-Qn-Ofn" customClass="MessageCell" customModule="ContextComposeFieldTester" customModuleProvider="target">
@@ -133,17 +133,26 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="FSk-cw-lhH"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6A5-3Q-OgJ" customClass="ContextAwareComposeView" customModule="ContextAwareComposeField">
+                                <rect key="frame" x="0.0" y="566" width="600" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="V8N-Sc-ThJ" secondAttribute="trailing" id="4kI-BD-Xgc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6A5-3Q-OgJ" secondAttribute="bottom" id="9ju-HI-KfV"/>
                             <constraint firstItem="V8N-Sc-ThJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ck2-lh-lo4"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="V8N-Sc-ThJ" secondAttribute="bottom" id="TAw-yH-M6o"/>
+                            <constraint firstItem="6A5-3Q-OgJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Fge-Rc-pAH"/>
+                            <constraint firstItem="6A5-3Q-OgJ" firstAttribute="top" secondItem="V8N-Sc-ThJ" secondAttribute="bottom" id="MmT-PK-ddY"/>
+                            <constraint firstAttribute="trailing" secondItem="6A5-3Q-OgJ" secondAttribute="trailing" id="f95-oo-YIL"/>
                             <constraint firstItem="V8N-Sc-ThJ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="nlV-Us-NL0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RBm-09-E2m"/>
                     <connections>
+                        <outlet property="composeView" destination="6A5-3Q-OgJ" id="dHE-PQ-uEy"/>
+                        <outlet property="composeViewBottomContraint" destination="9ju-HI-KfV" id="eV3-VO-APW"/>
                         <outlet property="tableView" destination="V8N-Sc-ThJ" id="46d-2h-IVk"/>
                     </connections>
                 </viewController>
