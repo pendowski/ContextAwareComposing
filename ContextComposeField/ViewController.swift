@@ -28,7 +28,11 @@ class MessageCell: UITableViewCell {
     @IBOutlet var messageLabel: UILabel!
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ContextAwareComposeViewDelegate {
+extension UITextField: MessageContainer {
+    
+}
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ContextAwareComposeViewDelegate {
     
     private var messageTimer: NSTimer!
     @IBOutlet private var tableView: UITableView!
@@ -49,12 +53,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.messages.append(Message(type: .Outgoing, body: "Hi"))
         
         self.textField = UITextField()
-        self.composeView.messageContainer.messageComposeView = self.textField
+        self.textField.delegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(self.textFieldDidChange(_:)),
+                                                         name: UITextFieldTextDidChangeNotification,
+                                                         object: self.textField)
+        
+        self.composeView.messageContainer.setMessageComposeView(self.textField)
         self.composeView.delegate = self
+        self.composeView.sendButton.enabled = false
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardFrameChanged(_:)), name: UIKeyboardDidChangeFrameNotification, object: nil)
         
-        self.messageTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.sendFakeMessage), userInfo: nil, repeats: true)
+        self.messageTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self,
+                                                                   selector: #selector(self.sendFakeMessage),
+                                                                   userInfo: nil,
+                                                                   repeats: true)
     }
     
     func insertMessage(message: Message) {
@@ -102,10 +116,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.textField.text = ""
         self.composeView.setSaveButtonVisible(false, animated: true)
+        self.composeView.sendButton.enabled = false
     }
     
-    func viewForSavedMessages(composeView: ContextAwareComposeView) -> UIView {
-        return self.view
+    func composeView(composeView: ContextAwareComposeView, pressedSaveButton: UIButton) {
+        self.textField.text = ""
+        self.composeView.setSaveButtonVisible(false, animated: true)
+        self.composeView.sendButton.enabled = false
+    }
+    
+    func composeView(composeView: ContextAwareComposeView, tappedOnSavedMessage savedMessage: String) {
+        let currentMessage = [ self.textField.text, savedMessage ].flatMap({ $0 }).joinWithSeparator(" ")
+        self.textField.text = currentMessage
+        self.composeView.sendButton.enabled = true
+    }
+    
+    func composeView(composeView: ContextAwareComposeView, adjustForSavedMessagesOfHeight height: CGFloat) {
+        self.tableView.contentInset.bottom = height
+    }
+    
+    
+    func viewForStoringSavesMessage(composeView: ContextAwareComposeView, savedMessage: String) -> UIView {
+        let bubble = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        let label = UILabel(frame: bubble.bounds)
+        label.text = savedMessage
+        label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        bubble.addSubview(label)
+        bubble.backgroundColor = UIColor.redColor()
+        return bubble
+    }
+    
+    // MARK: - Text Field delegate
+    
+    @objc func textFieldShouldReturn(textField: UITextField) -> Bool {
+        return true
+    }
+    
+    @objc private func textFieldDidChange(notification: NSNotification) {
+        if let textField = notification.object as? UITextField {
+            self.composeView.sendButton.enabled = !(textField.text?.isEmpty ?? true)
+        }
     }
     
     // MARK: - Keyboard handling
@@ -118,7 +168,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK: - Timer
     
-    @objc func sendFakeMessage() {
+    @objc private func sendFakeMessage() {
         let date = NSDate()
         self.insertMessage(Message(type: .Incomming, body: "It's now \(date)"))
         

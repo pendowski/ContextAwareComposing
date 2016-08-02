@@ -10,18 +10,36 @@ import UIKit
 
 @objc public protocol ContextAwareComposeViewDelegate: class {
     func composeView(composeView: ContextAwareComposeView, pressedSendButton: UIButton)
-    func viewForSavedMessages(composeView: ContextAwareComposeView) -> UIView
+    func composeView(composeView: ContextAwareComposeView, pressedSaveButton: UIButton)
+    
+    func composeView(composeView: ContextAwareComposeView, tappedOnSavedMessage savedMessage: String)
+
+    func composeView(composeView: ContextAwareComposeView, adjustForSavedMessagesOfHeight: CGFloat)
+    func viewForStoringSavesMessage(composeView: ContextAwareComposeView, savedMessage: String) -> UIView
+}
+
+private struct MessageBubble {
+    let view: UIView
+    let message: String
 }
 
 @IBDesignable
 public class ContextAwareComposeView: UIView {
 
+    private var messageBubbles: [MessageBubble] = []
     private var messageContainerLeft: NSLayoutConstraint!
     public private(set) var sendButton: UIButton!
     public private(set) var saveMessageButton: UIButton!
     public private(set) var messageContainer: ContextAwareFieldContainer!
     
+    public var messageBubbleSize = CGSize(width: 44, height: 44)
     @IBOutlet public weak var delegate: ContextAwareComposeViewDelegate?
+    
+    override public var frame: CGRect {
+        didSet {
+            
+        }
+    }
     
     public var saveButtonVisible: Bool {
         get {
@@ -48,6 +66,7 @@ public class ContextAwareComposeView: UIView {
         
         self.saveMessageButton = UIButton(type: .ContactAdd)
         self.saveMessageButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        self.saveMessageButton.addTarget(self, action: #selector(self.saveButtonPressed(_:)), forControlEvents: .TouchUpInside)
         self.addSubview(self.saveMessageButton)
         self.saveMessageButton.translatesAutoresizingMaskIntoConstraints = false
         self.saveMessageButton.alpha = 0
@@ -100,5 +119,81 @@ public class ContextAwareComposeView: UIView {
     
     @objc private func sendButtonPressed(sender: UIButton) {
         self.delegate?.composeView(self, pressedSendButton: sender)
+    }
+    
+    @objc private func saveButtonPressed(sender: UIButton) {
+        guard let message = self.messageContainer.messageContainer?.text,
+            view = self.delegate?.viewForStoringSavesMessage(self, savedMessage: message),
+            window = self.window,
+            composeView = self.messageContainer.messageComposeView
+            else {
+                return
+        }
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.messageBubbleTapped(_:))))
+        
+        self.delegate?.composeView(self, adjustForSavedMessagesOfHeight: self.messageBubbleSize.height)
+        
+        window.addSubview(view)
+        view.frame = self.messageContainer.convertRect(composeView.frame, toView: nil)
+        
+        
+        let frame = self.convertRect(self.bounds, toView: nil)
+        UIView.animateWithDuration(0.3) {
+            view.frame = CGRect(x: frame.origin.x + CGFloat(self.messageBubbles.count) * self.messageBubbleSize.width,
+                                y: frame.origin.y - self.messageBubbleSize.height,
+                                width: self.messageBubbleSize.width,
+                                height: self.messageBubbleSize.height)
+        }
+        
+        self.messageBubbles.append(MessageBubble(view: view, message: message))
+        
+        self.delegate?.composeView(self, pressedSaveButton: self.saveMessageButton)
+    }
+    
+    @objc private func messageBubbleTapped(sender: UITapGestureRecognizer) {
+        guard let index = self.messageBubbles.indexOf({ $0.view == sender.view }),
+            composeView = self.messageContainer.messageComposeView else {
+            sender.view?.removeFromSuperview()
+            return
+        }
+        
+        let bubble = self.messageBubbles[index]
+        
+        UIView.animateWithDuration(0.3, animations: {
+            bubble.view.frame = self.messageContainer.convertRect(composeView.frame, toView: nil)
+            }) { _ in
+                self.delegate?.composeView(self, tappedOnSavedMessage: bubble.message)
+
+                bubble.view.removeFromSuperview()
+                self.messageBubbles.removeAtIndex(index)
+                
+                if self.messageBubbles.isEmpty {
+                    self.delegate?.composeView(self, adjustForSavedMessagesOfHeight: 0)
+                }
+                
+                self.realignMessageBubbles(true)
+        }
+        
+    }
+    
+    // MARK: - Private
+    
+    private func realignMessageBubbles(animated: Bool) {
+        let frame = self.convertRect(self.bounds, toView: nil)
+        
+        var index = 0
+        self.messageBubbles.forEach({ bubble in
+            UIView.animateWithDuration(animated ? 0.3 : 0,
+                delay: animated ? Double(index) * 0.1 : 0,
+                options: [],
+                animations: {
+                    bubble.view.frame = CGRect(x: frame.origin.x + CGFloat(index) * self.messageBubbleSize.width,
+                        y: frame.origin.y - self.messageBubbleSize.height,
+                        width: self.messageBubbleSize.width,
+                        height: self.messageBubbleSize.height)
+                }, completion: nil)
+            index += 1
+        })
     }
 }
