@@ -23,6 +23,8 @@ private struct MessageBubble {
     let message: String
 }
 
+private let kAnimationDuration = 0.3
+
 @IBDesignable
 public class ContextAwareComposeView: UIView {
 
@@ -106,7 +108,7 @@ public class ContextAwareComposeView: UIView {
         let width = CGRectGetWidth(self.saveMessageButton.bounds)
         let translation: CGFloat = visible ? 0.0 : -1.0
         
-        UIView.animateWithDuration(0.3) {
+        UIView.animateWithDuration(kAnimationDuration, options: [ .AllowAnimatedContent, .BeginFromCurrentState ]) {
             self.messageContainerLeft.constant = visible ? width : 0
             self.layoutIfNeeded()
             self.saveMessageButton.transform = CGAffineTransformMakeTranslation(translation * width, 0)
@@ -139,7 +141,7 @@ public class ContextAwareComposeView: UIView {
         
         
         let frame = self.convertRect(self.bounds, toView: nil)
-        UIView.animateWithDuration(0.3) {
+        UIView.animateWithDuration(kAnimationDuration, options: [ .AllowAnimatedContent, .BeginFromCurrentState ]) {
             view.frame = CGRect(x: frame.origin.x + CGFloat(self.messageBubbles.count) * self.messageBubbleSize.width,
                                 y: frame.origin.y - self.messageBubbleSize.height,
                                 width: self.messageBubbleSize.width,
@@ -160,7 +162,7 @@ public class ContextAwareComposeView: UIView {
         
         let bubble = self.messageBubbles[index]
         
-        UIView.animateWithDuration(0.3, animations: {
+        UIView.animateWithDuration(kAnimationDuration, options: [ .AllowAnimatedContent, .BeginFromCurrentState ], animations: {
             bubble.view.frame = self.messageContainer.convertRect(composeView.frame, toView: nil)
             }) { _ in
                 self.delegate?.composeView(self, tappedOnSavedMessage: bubble.message)
@@ -184,9 +186,9 @@ public class ContextAwareComposeView: UIView {
         
         var index = 0
         self.messageBubbles.forEach({ bubble in
-            UIView.animateWithDuration(animated ? 0.3 : 0,
-                delay: animated ? Double(index) * 0.1 : 0,
-                options: [],
+            UIView.animateWithDuration(animated ? kAnimationDuration : 0,
+                delay: animated ? Double(index) * kAnimationDuration / 3 : 0,
+                options: [ .AllowAnimatedContent, .BeginFromCurrentState ],
                 animations: {
                     bubble.view.frame = CGRect(x: frame.origin.x + CGFloat(index) * self.messageBubbleSize.width,
                         y: frame.origin.y - self.messageBubbleSize.height,
