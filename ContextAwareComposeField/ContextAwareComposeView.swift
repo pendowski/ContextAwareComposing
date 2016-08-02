@@ -23,22 +23,25 @@ private struct MessageBubble {
     let message: String
 }
 
-private let kAnimationDuration = 0.3
+private let kAnimationDuration: NSTimeInterval = 0.3
+private let kMessageContainerLeftMargin: CGFloat = 8
 
 @IBDesignable
 public class ContextAwareComposeView: UIView {
 
     private var messageBubbles: [MessageBubble] = []
     private var messageContainerLeft: NSLayoutConstraint!
-    public private(set) var sendButton: UIButton!
-    public private(set) var saveMessageButton: UIButton!
-    public private(set) var messageContainer: ContextAwareFieldContainer!
+    private var sendButton: UIButton!
+    private var saveMessageButton: UIButton!
+    private var messageContainer: ContextAwareFieldContainer!
     
     public var messageBubbleSize = CGSize(width: 44, height: 44) {
-        didSet {
-            self.realignMessageBubbles(true)
-        }
+        didSet { self.realignMessageBubbles(false) }
     }
+    public var messageBubbleMargin: CGFloat = 4 {
+        didSet { self.realignMessageBubbles(false) }
+    }
+    
     @IBOutlet public weak var delegate: ContextAwareComposeViewDelegate?
     
     override public var frame: CGRect {
@@ -56,6 +59,15 @@ public class ContextAwareComposeView: UIView {
         }
     }
     
+    public var sendButtonEnabled: Bool {
+        get {
+            return self.sendButton.enabled
+        }
+        set {
+            return self.sendButton.enabled = newValue
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -66,6 +78,10 @@ public class ContextAwareComposeView: UIView {
         super.init(coder: aDecoder)
         
         self.setupSubviews()
+    }
+    
+    public func setMessageComposeView<View: UIView where View:MessageContainer>(view: View) {
+        self.messageContainer.messageComposeView = view
     }
     
     private func setupSubviews() {
@@ -84,20 +100,21 @@ public class ContextAwareComposeView: UIView {
         
         self.sendButton = UIButton(type: .System)
         self.sendButton.setTitle("Send", forState: .Normal)
+        self.sendButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         self.sendButton.sizeToFit()
         self.sendButton.addTarget(self, action: #selector(self.sendButtonPressed(_:)), forControlEvents: .TouchUpInside)
-        self.sendButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         self.sendButton.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.sendButton)
         
+        let sendWidth = self.sendButton.bounds.size.width
         let views = [ "send" : self.sendButton, "message" : self.messageContainer, "save" : self.saveMessageButton ]
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[send]|", options: [], metrics: nil, views: views))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[message]|", options: [], metrics: nil, views: views))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[save]|", options: [], metrics: nil, views: views))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[message]-[send]|", options: [], metrics: nil, views: views))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[message]-[send(\(sendWidth))]|", options: [], metrics: nil, views: views))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[save]", options: [], metrics: nil, views: views))
         
-        self.messageContainerLeft = self.messageContainer.leftAnchor.constraintEqualToAnchor(self.leftAnchor, constant: 0)
+        self.messageContainerLeft = self.messageContainer.leftAnchor.constraintEqualToAnchor(self.leftAnchor, constant: kMessageContainerLeftMargin)
         self.messageContainerLeft.active = true
     }
     
@@ -113,7 +130,7 @@ public class ContextAwareComposeView: UIView {
         let translation: CGFloat = visible ? 0.0 : -1.0
         
         UIView.animateWithDuration(kAnimationDuration, options: [ .AllowAnimatedContent, .BeginFromCurrentState ]) {
-            self.messageContainerLeft.constant = visible ? width : 0
+            self.messageContainerLeft.constant = visible ? width : kMessageContainerLeftMargin
             self.layoutIfNeeded()
             self.saveMessageButton.transform = CGAffineTransformMakeTranslation(translation * width, 0)
             self.saveMessageButton.alpha = visible ? 1 : 0
@@ -143,13 +160,8 @@ public class ContextAwareComposeView: UIView {
         window.addSubview(view)
         view.frame = self.messageContainer.convertRect(composeView.frame, toView: nil)
         
-        
-        let frame = self.convertRect(self.bounds, toView: nil)
         UIView.animateWithDuration(kAnimationDuration, options: [ .AllowAnimatedContent, .BeginFromCurrentState ]) {
-            view.frame = CGRect(x: frame.origin.x + CGFloat(self.messageBubbles.count) * self.messageBubbleSize.width,
-                                y: frame.origin.y - self.messageBubbleSize.height,
-                                width: self.messageBubbleSize.width,
-                                height: self.messageBubbleSize.height)
+            view.frame = self.frameForBubbleAtIndex(self.messageBubbles.count)
         }
         
         self.messageBubbles.append(MessageBubble(view: view, message: message))
@@ -186,7 +198,6 @@ public class ContextAwareComposeView: UIView {
     // MARK: - Private
     
     private func realignMessageBubbles(animated: Bool) {
-        let frame = self.convertRect(self.bounds, toView: nil)
         
         var index = 0
         self.messageBubbles.forEach({ bubble in
@@ -194,12 +205,18 @@ public class ContextAwareComposeView: UIView {
                 delay: animated ? Double(index) * kAnimationDuration / 3 : 0,
                 options: [ .AllowAnimatedContent, .BeginFromCurrentState ],
                 animations: {
-                    bubble.view.frame = CGRect(x: frame.origin.x + CGFloat(index) * self.messageBubbleSize.width,
-                        y: frame.origin.y - self.messageBubbleSize.height,
-                        width: self.messageBubbleSize.width,
-                        height: self.messageBubbleSize.height)
+                    bubble.view.frame = self.frameForBubbleAtIndex(index)
                 }, completion: nil)
             index += 1
         })
     }
+    
+    private func frameForBubbleAtIndex(index: Int) -> CGRect {
+        let floatIndex = CGFloat(index)
+        let frame = self.convertRect(self.bounds, toView: nil)
+        
+        return CGRect(x: frame.origin.x + floatIndex * self.messageBubbleSize.width + floatIndex * self.messageBubbleMargin,
+                      y: frame.origin.y - self.messageBubbleSize.height,
+                      width: self.messageBubbleSize.width,
+                      height: self.messageBubbleSize.height)}
 }

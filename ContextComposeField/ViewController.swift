@@ -65,9 +65,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                                          name: UITextFieldTextDidChangeNotification,
                                                          object: self.textField)
         
-        self.composeView.messageContainer.setMessageComposeView(self.textField)
+        self.composeView.setMessageComposeView(self.textField)
         self.composeView.delegate = self
-        self.composeView.sendButton.enabled = false
+        self.composeView.sendButtonEnabled = false
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardFrameChanged(_:)), name: UIKeyboardDidChangeFrameNotification, object: nil)
         
@@ -122,19 +122,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.textField.text = ""
         self.composeView.setSaveButtonVisible(false, animated: true)
-        self.composeView.sendButton.enabled = false
+        self.composeView.sendButtonEnabled = false
     }
     
     func composeView(composeView: ContextAwareComposeView, pressedSaveButton: UIButton) {
         self.textField.text = ""
         self.composeView.setSaveButtonVisible(false, animated: true)
-        self.composeView.sendButton.enabled = false
+        self.composeView.sendButtonEnabled = false
     }
     
     func composeView(composeView: ContextAwareComposeView, tappedOnSavedMessage savedMessage: String) {
         let currentMessage = [ self.textField.text, savedMessage ].flatMap({ $0 }).joinWithSeparator(" ")
         self.textField.text = currentMessage
-        self.composeView.sendButton.enabled = true
+        
+        let endOfText = self.textField.endOfDocument
+        self.textField.selectedTextRange = textField.textRangeFromPosition(endOfText, toPosition: endOfText)
+        
+        self.composeView.sendButtonEnabled = true
     }
     
     func composeView(composeView: ContextAwareComposeView, adjustForSavedMessagesOfHeight height: CGFloat) {
@@ -143,16 +147,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func viewForStoringSavesMessage(composeView: ContextAwareComposeView, savedMessage: String) -> UIView {
-        let bubble = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let bubble =  BubbleView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         let label = UILabel(frame: CGRectInset(bubble.bounds, 8, 0))
         label.text = savedMessage
+        label.font = UIFont.italicSystemFontOfSize(12)
         label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         bubble.addSubview(label)
         
-        bubble.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
-        bubble.layer.borderColor = UIColor(red: 0.2, green: 0.73, blue: 1, alpha: 1).CGColor
-        bubble.layer.borderWidth = 2
-        bubble.layer.cornerRadius = 16
+        bubble.backgroundColor = UIColor.greenColor()
+        bubble.alpha = 0.5
+        bubble.bubbleDirection = .None
+        bubble.roundRadius = 8
         
         return bubble
     }
@@ -165,7 +170,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @objc private func textFieldDidChange(notification: NSNotification) {
         if let textField = notification.object as? UITextField {
-            self.composeView.sendButton.enabled = !(textField.text?.isEmpty ?? true)
+            self.composeView.sendButtonEnabled = !(textField.text?.isEmpty ?? true)
         }
     }
     

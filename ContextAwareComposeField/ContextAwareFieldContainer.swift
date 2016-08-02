@@ -12,15 +12,15 @@ public protocol MessageContainer {
     var text: String? { get }
 }
 
-public class ContextAwareFieldContainer: UIView {
+class ContextAwareFieldContainer: UIView {
     
-    public var messageContainer: MessageContainer? {
+    var messageContainer: MessageContainer? {
         get {
             return self.messageComposeView as? MessageContainer
         }
     }
     
-    public private(set) var messageComposeView: UIView? {
+    var messageComposeView: UIView? {
         didSet {
             oldValue?.removeFromSuperview()
             
@@ -35,9 +35,5 @@ public class ContextAwareFieldContainer: UIView {
                 newValue.widthAnchor.constraintEqualToAnchor(self.widthAnchor, multiplier: 1).active = true
             }
         }
-    }
-    
-    public func setMessageComposeView<View: UIView where View:MessageContainer>(view: View) {
-        self.messageComposeView = view
     }
 }
