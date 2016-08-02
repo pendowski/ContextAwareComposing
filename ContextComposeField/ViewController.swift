@@ -123,6 +123,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.textField.text = ""
         self.composeView.setSaveButtonVisible(false, animated: true)
         self.composeView.sendButtonEnabled = false
+        self.textField.resignFirstResponder()
     }
     
     func composeView(composeView: ContextAwareComposeView, pressedSaveButton: UIButton) {
@@ -177,8 +178,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - Keyboard handling
     
     @objc func keyboardFrameChanged(notification: NSNotification) {
-        if let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue {
-            self.composeViewBottomContraint.constant = CGRectGetHeight(keyboardFrame)
+        if let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue,
+            duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue {
+            
+            let frame = CGRectIntersection(self.view.bounds, self.view.convertRect(keyboardFrame, fromView: nil))
+            UIView.animateWithDuration(duration, animations: {
+                self.composeViewBottomContraint.constant = CGRectGetHeight(frame)
+                self.view.layoutIfNeeded()
+            })
         }
     }
     

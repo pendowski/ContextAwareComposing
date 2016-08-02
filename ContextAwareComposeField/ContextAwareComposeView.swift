@@ -24,10 +24,10 @@ private struct MessageBubble {
 }
 
 private let kAnimationDuration: NSTimeInterval = 0.3
-private let kMessageContainerLeftMargin: CGFloat = 8
+private let kMessageContainerLeftMargin: CGFloat = 4
 
 @IBDesignable
-public class ContextAwareComposeView: UIView {
+public class ContextAwareComposeView: UIView, MessageBubbleViewDelegate {
 
     private var messageBubbles: [MessageBubble] = []
     private var messageContainerLeft: NSLayoutConstraint!
@@ -45,9 +45,15 @@ public class ContextAwareComposeView: UIView {
     @IBOutlet public weak var delegate: ContextAwareComposeViewDelegate?
     
     override public var frame: CGRect {
-        didSet {
-            
-        }
+        didSet { self.realignMessageBubbles(false) }
+    }
+    
+    override public var bounds: CGRect {
+        didSet { self.realignMessageBubbles(false) }
+    }
+    
+    override public var center: CGPoint {
+        didSet { self.realignMessageBubbles(false) }
     }
     
     public var saveButtonVisible: Bool {
@@ -153,26 +159,39 @@ public class ContextAwareComposeView: UIView {
                 return
         }
         
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.messageBubbleTapped(_:))))
+        let frame = self.messageContainer.convertRect(composeView.frame, toView: nil)
+        let bubbleView = MessageBubbleView(frame: frame, view: view, delegate: self)
         
         self.delegate?.composeView(self, adjustForSavedMessagesOfHeight: self.messageBubbleSize.height)
         
-        window.addSubview(view)
-        view.frame = self.messageContainer.convertRect(composeView.frame, toView: nil)
-        
+        window.addSubview(bubbleView)
+
         UIView.animateWithDuration(kAnimationDuration, options: [ .AllowAnimatedContent, .BeginFromCurrentState ]) {
-            view.frame = self.frameForBubbleAtIndex(self.messageBubbles.count)
+            bubbleView.frame = self.frameForBubbleAtIndex(self.messageBubbles.count)
         }
         
-        self.messageBubbles.append(MessageBubble(view: view, message: message))
+        self.messageBubbles.append(MessageBubble(view: bubbleView, message: message))
         
         self.delegate?.composeView(self, pressedSaveButton: self.saveMessageButton)
     }
     
-    @objc private func messageBubbleTapped(sender: UITapGestureRecognizer) {
-        guard let index = self.messageBubbles.indexOf({ $0.view == sender.view }),
+    // MARK: - Message bubble view delegate
+    
+    func messageBubbleViewPanned(view: MessageBubbleView, state: PanningState, delta: CGPoint) {
+        if state == .Changed {
+            view.transform = CGAffineTransformTranslate(view.transform, delta.x, delta.y)
+        } else {
+            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: [ .AllowAnimatedContent, .BeginFromCurrentState ], animations: {
+                view.transform = CGAffineTransformIdentity
+                }, completion: nil)
+        }
+    }
+    
+    func messageBubbleViewTapped(view: MessageBubbleView) {
+        
+        guard let index = self.messageBubbles.indexOf({ $0.view == view }),
             composeView = self.messageContainer.messageComposeView else {
-            sender.view?.removeFromSuperview()
+            view.removeFromSuperview()
             return
         }
         

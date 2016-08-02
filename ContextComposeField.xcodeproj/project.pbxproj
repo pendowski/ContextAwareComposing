@@ -22,6 +22,7 @@
 		AA256A0F1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A0E1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift */; };
 		AA256A111D50AC7500E3BBC5 /* UIView+Extended.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A101D50AC7500E3BBC5 /* UIView+Extended.swift */; };
 		AA256A131D50AEE000E3BBC5 /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A121D50AEE000E3BBC5 /* InsetTextField.swift */; };
+		AA256A151D50CD7D00E3BBC5 /* MessageBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A141D50CD7D00E3BBC5 /* MessageBubbleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		AA256A0E1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextAwareFieldContainer.swift; sourceTree = "<group>"; };
 		AA256A101D50AC7500E3BBC5 /* UIView+Extended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extended.swift"; sourceTree = "<group>"; };
 		AA256A121D50AEE000E3BBC5 /* InsetTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
+		AA256A141D50CD7D00E3BBC5 /* MessageBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBubbleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				AA2569F21D4F3EC500E3BBC5 /* Info.plist */,
 				AA256A0C1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift */,
 				AA256A0E1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift */,
+				AA256A141D50CD7D00E3BBC5 /* MessageBubbleView.swift */,
 				AA256A101D50AC7500E3BBC5 /* UIView+Extended.swift */,
 			);
 			path = ContextAwareComposeField;
@@ -323,6 +326,7 @@
 			files = (
 				AA256A0F1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift in Sources */,
 				AA256A0D1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift in Sources */,
+				AA256A151D50CD7D00E3BBC5 /* MessageBubbleView.swift in Sources */,
 				AA256A111D50AC7500E3BBC5 /* UIView+Extended.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
