@@ -12,7 +12,7 @@ import UIKit
     func composeView(composeView: ContextAwareComposeView, pressedSendButton: UIButton)
     func composeView(composeView: ContextAwareComposeView, pressedSaveButton: UIButton)
     
-    func composeView(composeView: ContextAwareComposeView, tappedOnSavedMessage savedMessage: String)
+    func composeView(composeView: ContextAwareComposeView, applySavedMessage savedMessage: String)
 
     func composeView(composeView: ContextAwareComposeView, adjustForSavedMessagesOfHeight: CGFloat)
     func viewForStoringSavesMessage(composeView: ContextAwareComposeView, savedMessage: String) -> UIView
@@ -29,6 +29,7 @@ private let kMessageContainerLeftMargin: CGFloat = 4
 @IBDesignable
 public class ContextAwareComposeView: UIView, MessageBubbleViewDelegate {
 
+    private var removeArea: UIImageView!
     private var messageBubbles: [MessageBubble] = []
     private var messageContainerLeft: NSLayoutConstraint!
     private var sendButton: UIButton!
@@ -91,6 +92,10 @@ public class ContextAwareComposeView: UIView, MessageBubbleViewDelegate {
     }
     
     private func setupSubviews() {
+        
+        self.removeArea = UIImageView()
+        self.removeArea.frame = CGRect(x: 0, y: 0, width: self.bounds.size.width, height: 60)
+        self.removeArea.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.5)
         
         self.saveMessageButton = UIButton(type: .ContactAdd)
         self.saveMessageButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
@@ -178,12 +183,67 @@ public class ContextAwareComposeView: UIView, MessageBubbleViewDelegate {
     // MARK: - Message bubble view delegate
     
     func messageBubbleViewPanned(view: MessageBubbleView, state: PanningState, delta: CGPoint) {
-        if state == .Changed {
-            view.transform = CGAffineTransformTranslate(view.transform, delta.x, delta.y)
-        } else {
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: [ .AllowAnimatedContent, .BeginFromCurrentState ], animations: {
+        
+        if state == .Began, let window = self.window {
+            
+            let frame = self.convertRect(self.bounds, toView: window)
+            
+            self.removeArea.frame.size.width = window.bounds.size.width
+            self.removeArea.frame.origin.y = frame.origin.y - self.messageBubbleSize.height - self.removeArea.frame.height
+            
+            self.window?.insertSubview(self.removeArea, belowSubview: view)
+            
+        }
+        
+        view.transform = CGAffineTransformTranslate(view.transform, delta.x, delta.y)
+        
+        if state == .Ended {
+            
+            guard let index = self.messageBubbles.indexOf({ $0.view == view }) else {
+                view.removeFromSuperview()
+                return
+            }
+            
+            let containerFrame = self.messageContainer.convertRect(self.messageContainer.bounds, toView: nil)
+            let center = CGPoint(x: view.frame.midX , y: view.frame.midY)
+            
+            let insideTextField = CGRectContainsPoint(containerFrame, center)
+            let insideRemoveArea = CGRectContainsPoint(self.removeArea.frame, center)
+            
+            let removeViewAnimated = {
+                
+                let frame = view.frame
                 view.transform = CGAffineTransformIdentity
-                }, completion: nil)
+                view.frame = frame
+                
+                UIView.animateWithDuration(kAnimationDuration, options: [ .AllowAnimatedContent, .BeginFromCurrentState ], animations: {
+                    view.alpha = 0
+                    view.transform = CGAffineTransformMakeScale(CGFloat.min, CGFloat.min)
+                    }, completion:{ _ in
+                        self.removeMessageBubbleAtIndex(index, animated: true)
+                })
+                
+            }
+
+            if insideTextField {
+                
+                let bubble = self.messageBubbles[index]
+                self.delegate?.composeView(self, applySavedMessage: bubble.message)
+                
+                removeViewAnimated()
+               
+                
+            } else if insideRemoveArea {
+                
+                removeViewAnimated()
+                
+            } else {
+                UIView.animateWithDuration(kAnimationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: [ .AllowAnimatedContent, .BeginFromCurrentState ], animations: {
+                    view.transform = CGAffineTransformIdentity
+                    }, completion: nil)
+            }
+            
+            self.removeArea.removeFromSuperview()
         }
     }
     
@@ -200,21 +260,27 @@ public class ContextAwareComposeView: UIView, MessageBubbleViewDelegate {
         UIView.animateWithDuration(kAnimationDuration, options: [ .AllowAnimatedContent, .BeginFromCurrentState ], animations: {
             bubble.view.frame = self.messageContainer.convertRect(composeView.frame, toView: nil)
             }) { _ in
-                self.delegate?.composeView(self, tappedOnSavedMessage: bubble.message)
-
-                bubble.view.removeFromSuperview()
-                self.messageBubbles.removeAtIndex(index)
+                self.delegate?.composeView(self, applySavedMessage: bubble.message)
                 
-                if self.messageBubbles.isEmpty {
-                    self.delegate?.composeView(self, adjustForSavedMessagesOfHeight: 0)
-                }
-                
-                self.realignMessageBubbles(true)
+                self.removeMessageBubbleAtIndex(index, animated: true)
         }
         
     }
     
     // MARK: - Private
+    
+    private func removeMessageBubbleAtIndex(index: Int, animated: Bool) {
+        let bubble = self.messageBubbles[index]
+        
+        bubble.view.removeFromSuperview()
+        self.messageBubbles.removeAtIndex(index)
+        
+        if self.messageBubbles.isEmpty {
+            self.delegate?.composeView(self, adjustForSavedMessagesOfHeight: 0)
+        }
+        
+        self.realignMessageBubbles(animated)
+    }
     
     private func realignMessageBubbles(animated: Bool) {
         

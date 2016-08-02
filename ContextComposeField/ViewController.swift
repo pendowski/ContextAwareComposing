@@ -132,7 +132,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.composeView.sendButtonEnabled = false
     }
     
-    func composeView(composeView: ContextAwareComposeView, tappedOnSavedMessage savedMessage: String) {
+    func composeView(composeView: ContextAwareComposeView, applySavedMessage savedMessage: String) {
         let currentMessage = [ self.textField.text, savedMessage ].flatMap({ $0 }).joinWithSeparator(" ")
         self.textField.text = currentMessage
         
