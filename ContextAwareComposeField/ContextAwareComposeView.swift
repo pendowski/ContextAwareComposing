@@ -34,7 +34,11 @@ public class ContextAwareComposeView: UIView {
     public private(set) var saveMessageButton: UIButton!
     public private(set) var messageContainer: ContextAwareFieldContainer!
     
-    public var messageBubbleSize = CGSize(width: 44, height: 44)
+    public var messageBubbleSize = CGSize(width: 44, height: 44) {
+        didSet {
+            self.realignMessageBubbles(true)
+        }
+    }
     @IBOutlet public weak var delegate: ContextAwareComposeViewDelegate?
     
     override public var frame: CGRect {

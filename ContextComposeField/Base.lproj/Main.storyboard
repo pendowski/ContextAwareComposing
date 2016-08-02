@@ -34,10 +34,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="V8N-Sc-ThJ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="566"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="562"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncommingCell" id="Fdi-Qn-Ofn" customClass="MessageCell" customModule="ContextComposeFieldTester" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingCell" id="Fdi-Qn-Ofn" customClass="MessageCell" customModule="ContextComposeFieldTester" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fdi-Qn-Ofn" id="hVJ-et-esr">
@@ -54,7 +54,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.20021130003528076" green="0.7285731623263656" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.20000000000000001" green="0.72941176470588232" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="dCP-ob-y4H" secondAttribute="trailing" constant="8" id="I2O-DC-KAr"/>
                                                         <constraint firstAttribute="bottom" secondItem="dCP-ob-y4H" secondAttribute="bottom" constant="8" id="Qet-oO-g4q"/>
@@ -82,7 +82,7 @@
                                             <outlet property="messageLabel" destination="dCP-ob-y4H" id="rlF-wF-MvZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingCell" id="1aT-ys-kbd" customClass="MessageCell" customModule="ContextComposeFieldTester" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncommingCell" id="1aT-ys-kbd" customClass="MessageCell" customModule="ContextComposeFieldTester" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="136" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1aT-ys-kbd" id="T00-En-IY5">
@@ -134,7 +134,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6A5-3Q-OgJ" customClass="ContextAwareComposeView" customModule="ContextAwareComposeField">
-                                <rect key="frame" x="0.0" y="566" width="600" height="34"/>
+                                <rect key="frame" x="0.0" y="562" width="600" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>

@@ -39,7 +39,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet private var composeView: ContextAwareComposeView!
     @IBOutlet private var composeViewBottomContraint: NSLayoutConstraint!
     
-    private var textField: UITextField!
+    private var textField: InsetTextField!
     var messages: [Message] = []
 
     override func viewDidLoad() {
@@ -52,8 +52,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         self.messages.append(Message(type: .Outgoing, body: "Hi"))
         
-        self.textField = UITextField()
+        self.textField = InsetTextField()
+        self.textField.layer.borderColor = UIColor(red: 0.2, green: 0.73, blue: 1, alpha: 1).CGColor
+        self.textField.layer.borderWidth = 2
+        self.textField.layer.cornerRadius = 16
+        self.textField.insetX = 8
+        
         self.textField.delegate = self
+        
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          selector: #selector(self.textFieldDidChange(_:)),
                                                          name: UITextFieldTextDidChangeNotification,
@@ -137,12 +143,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func viewForStoringSavesMessage(composeView: ContextAwareComposeView, savedMessage: String) -> UIView {
-        let bubble = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        let label = UILabel(frame: bubble.bounds)
+        let bubble = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let label = UILabel(frame: CGRectInset(bubble.bounds, 8, 0))
         label.text = savedMessage
         label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         bubble.addSubview(label)
-        bubble.backgroundColor = UIColor.redColor()
+        
+        bubble.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
+        bubble.layer.borderColor = UIColor(red: 0.2, green: 0.73, blue: 1, alpha: 1).CGColor
+        bubble.layer.borderWidth = 2
+        bubble.layer.cornerRadius = 16
+        
         return bubble
     }
     

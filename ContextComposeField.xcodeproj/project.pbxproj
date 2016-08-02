@@ -21,6 +21,7 @@
 		AA256A0D1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A0C1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift */; };
 		AA256A0F1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A0E1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift */; };
 		AA256A111D50AC7500E3BBC5 /* UIView+Extended.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A101D50AC7500E3BBC5 /* UIView+Extended.swift */; };
+		AA256A131D50AEE000E3BBC5 /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256A121D50AEE000E3BBC5 /* InsetTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		AA256A0C1D4F3F0300E3BBC5 /* ContextAwareComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextAwareComposeView.swift; sourceTree = "<group>"; };
 		AA256A0E1D4F4E7800E3BBC5 /* ContextAwareFieldContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextAwareFieldContainer.swift; sourceTree = "<group>"; };
 		AA256A101D50AC7500E3BBC5 /* UIView+Extended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extended.swift"; sourceTree = "<group>"; };
+		AA256A121D50AEE000E3BBC5 /* InsetTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				AA2569BB1D4F358C00E3BBC5 /* LaunchScreen.storyboard */,
 				AA2569BE1D4F358C00E3BBC5 /* Info.plist */,
 				AA2569C41D4F36D000E3BBC5 /* BubbleView.swift */,
+				AA256A121D50AEE000E3BBC5 /* InsetTextField.swift */,
 			);
 			path = ContextComposeField;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				AA2569C51D4F36D000E3BBC5 /* BubbleView.swift in Sources */,
 				AA2569B51D4F358C00E3BBC5 /* ViewController.swift in Sources */,
 				AA2569B31D4F358C00E3BBC5 /* AppDelegate.swift in Sources */,
+				AA256A131D50AEE000E3BBC5 /* InsetTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
