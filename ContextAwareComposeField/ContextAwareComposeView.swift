@@ -189,7 +189,8 @@ public class ContextAwareComposeView: UIView, MessageBubbleViewDelegate {
             let frame = self.convertRect(self.bounds, toView: window)
             
             self.removeArea.frame.size.width = window.bounds.size.width
-            self.removeArea.frame.origin.y = frame.origin.y - self.messageBubbleSize.height - self.removeArea.frame.height
+            self.removeArea.frame.size.height = window.frame.height - frame.origin.y - self.messageBubbleSize.height
+            self.removeArea.frame.origin.y = 0
             
             self.window?.insertSubview(self.removeArea, belowSubview: view)
             
@@ -197,18 +198,28 @@ public class ContextAwareComposeView: UIView, MessageBubbleViewDelegate {
         
         view.transform = CGAffineTransformTranslate(view.transform, delta.x, delta.y)
         
+        let containerFrame = self.messageContainer.convertRect(self.messageContainer.bounds, toView: nil)
+        let center = CGPoint(x: view.frame.midX , y: view.frame.midY)
+        
+        let insideTextField = CGRectContainsPoint(containerFrame, center)
+        let insideRemoveArea = CGRectContainsPoint(self.removeArea.frame, center)
+        
+        UIView.animateWithDuration(kAnimationDuration / 2, options: [ .AllowAnimatedContent, .AllowUserInteraction, .BeginFromCurrentState ]) { 
+            if insideTextField {
+                view.frame.size.width = containerFrame.size.width
+            } else {
+                view.frame.size.width = self.messageBubbleSize.width
+            }
+            
+            view.alpha = insideRemoveArea ? 0.5 : 1
+        }
+        
         if state == .Ended {
             
             guard let index = self.messageBubbles.indexOf({ $0.view == view }) else {
                 view.removeFromSuperview()
                 return
             }
-            
-            let containerFrame = self.messageContainer.convertRect(self.messageContainer.bounds, toView: nil)
-            let center = CGPoint(x: view.frame.midX , y: view.frame.midY)
-            
-            let insideTextField = CGRectContainsPoint(containerFrame, center)
-            let insideRemoveArea = CGRectContainsPoint(self.removeArea.frame, center)
             
             let removeViewAnimated = {
                 
@@ -238,6 +249,7 @@ public class ContextAwareComposeView: UIView, MessageBubbleViewDelegate {
                 removeViewAnimated()
                 
             } else {
+                
                 UIView.animateWithDuration(kAnimationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: [ .AllowAnimatedContent, .BeginFromCurrentState ], animations: {
                     view.transform = CGAffineTransformIdentity
                     }, completion: nil)
